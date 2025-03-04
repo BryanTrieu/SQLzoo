@@ -65,17 +65,17 @@ SELECT DISTINCT stopb.name, b.company, b.num
 -- 10. Find the routes involving two buses that can go from Craiglockhart to Lochend.
 -- Show the bus no. and company for the first bus, the name of the stop for the transfer,
 -- and the bus no. and company for the second bus. 
-Select first.num, first.company, first.name, second.num, second.company
-From
-    (Select Distinct a.num, a.company, stopb.name
-    From route a JOIN route b ON (a.num=b.num AND a.company=b.company)
+SELECT first.num, first.company, first.name, second.num, second.company
+  FROM
+    (SELECT DISTINCT a.num, a.company, stopb.name
+    FROM route a JOIN route b ON (a.num=b.num AND a.company=b.company)
                  JOIN stops stopa ON stopa.id=a.stop
                  JOIN stops stopb ON stopb.id=b.stop
-    Where stopa.name='Craiglockhart') first
-JOIN
-    (Select Distinct a.num, a.company, stopa.name
-    From route a JOIN route b ON (a.num=b.num AND a.company=b.company)
+    WHERE stopa.name='Craiglockhart') first
+  JOIN
+    (SELECT DISTINCT a.num, a.company, stopa.name
+    FROM route a JOIN route b ON (a.num=b.num AND a.company=b.company)
                  JOIN stops stopa ON stopa.id=a.stop
                  JOIN stops stopb ON stopb.id=b.stop
-    Where stopb.name='Lochend') second
-Where first.name=second.name;
+    WHERE stopb.name='Lochend') second
+  WHERE first.name=second.name;
